@@ -1,0 +1,734 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fran Hsu | Transportation and operations data</title>
+<meta name="description" content="Fran (Chia-Fan) Hsu turns transportation and operations data into decisions. Traffic safety, planning, and forecasting consulting in Taiwan; M.S. in Information Science at the University of Pittsburgh, graduating May 2027.">
+<link rel="canonical" href="https://chia-fan-create.github.io/">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#F4F5F1" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1A2026" media="(prefers-color-scheme: dark)">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Fran Hsu | Transportation and operations data">
+<meta property="og:description" content="Traffic safety, planning, and forecasting consultant turned data practitioner. M.S. Information Science, University of Pittsburgh (May 2027).">
+<meta property="og:url" content="https://chia-fan-create.github.io/">
+<meta property="og:image" content="https://chia-fan-create.github.io/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Overpass:wght@400;600;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Fran Hsu",
+  "alternateName": "Chia-Fan Hsu",
+  "url": "https://chia-fan-create.github.io/",
+  "email": "mailto:francfhsu@gmail.com",
+  "jobTitle": "Transportation and operations data analyst",
+  "address": { "@type": "PostalAddress", "addressLocality": "Pittsburgh", "addressRegion": "PA", "addressCountry": "US" },
+  "alumniOf": [
+    { "@type": "CollegeOrUniversity", "name": "University of Pittsburgh" },
+    { "@type": "CollegeOrUniversity", "name": "National Cheng Kung University" },
+    { "@type": "CollegeOrUniversity", "name": "Chung Yuan Christian University" }
+  ],
+  "sameAs": [
+    "https://www.linkedin.com/in/chia-fan-hsu-78953b211/",
+    "https://github.com/Chia-Fan-create"
+  ]
+}
+</script>
+
+<style>
+/* ---------- Tokens ---------- */
+:root {
+  --paper: #F4F5F1;
+  --surface: #FAFBF8;
+  --ink: #1E2A32;
+  --muted: #56636B;
+  --rule: #CDD3CF;
+  --teal: #2F7A7E;   /* Taiwan, transit tools, primary links */
+  --ochre: #B98B2E;  /* Pittsburgh, strategy */
+  --rose: #B4625A;   /* traffic safety */
+  --blue: #4A6FA5;   /* research, optimization */
+  --plum: #7A6A9A;   /* data products */
+  --on-teal: #FFFFFF;
+
+  --font-sign: "Overpass", "Segoe UI", system-ui, sans-serif;
+  --font-text: "Source Serif 4", Georgia, "Times New Roman", serif;
+
+  --wrap: 78rem;
+  --measure: 72ch;
+  --line: 4px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #1A2026;
+    --surface: #212931;
+    --ink: #E6EAE7;
+    --muted: #A3AEB3;
+    --rule: #36424B;
+    --teal: #6FB3B5;
+    --ochre: #D6AE5A;
+    --rose: #D48C83;
+    --blue: #8AA9D6;
+    --plum: #B3A5D1;
+    --on-teal: #10181C;
+    color-scheme: dark;
+  }
+}
+
+/* ---------- Base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-text);
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+a { color: var(--teal); text-underline-offset: .18em; text-decoration-thickness: 1px; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 3px solid var(--ochre); outline-offset: 3px; border-radius: 2px; }
+h1, h2, h3 { font-family: var(--font-sign); line-height: 1.15; margin: 0; }
+h2 { font-size: clamp(1.75rem, 3.2vw, 2.25rem); font-weight: 800; letter-spacing: -.01em; }
+h3 { font-size: 1.3rem; font-weight: 600; }
+p { margin: 0 0 1em; }
+ul { margin: 0; padding-left: 1.1em; }
+.wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 1.5rem; }
+.skip { position: absolute; left: -999px; top: .5rem; background: var(--ink); color: var(--paper); padding: .5rem .9rem; z-index: 10; }
+.skip:focus { left: .5rem; }
+.sign { font-family: var(--font-sign); }
+.muted { color: var(--muted); }
+
+/* ---------- Header ---------- */
+.site-header {
+  position: sticky; top: 0; z-index: 5;
+  background: color-mix(in srgb, var(--paper) 92%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--rule);
+}
+.site-header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 4rem; }
+@media (max-width: 600px) {
+  .site-header .wrap { flex-wrap: wrap; gap: .35rem 1rem; padding-top: .6rem; padding-bottom: .6rem; }
+  .nav { width: 100%; gap: 1rem; font-size: .9rem; }
+  .nav a[href="#publications"] { display: none; }
+  html { scroll-padding-top: 6.5rem; }
+}
+.wordmark { font-family: var(--font-sign); font-weight: 800; font-size: 1.1rem; color: var(--ink); text-decoration: none; white-space: nowrap; }
+.nav { display: flex; align-items: center; gap: 1.4rem; font-family: var(--font-sign); font-size: .95rem; overflow-x: auto; scrollbar-width: none; }
+.nav::-webkit-scrollbar { display: none; }
+.nav a { color: var(--ink); text-decoration: none; white-space: nowrap; padding: .25rem 0; }
+.nav a:hover { color: var(--teal); }
+.nav .resume { border: 1.5px solid var(--teal); color: var(--teal); padding: .3rem .8rem; border-radius: 999px; }
+
+/* ---------- Hero ---------- */
+.hero { padding: clamp(3.5rem, 9vw, 6.5rem) 0 3rem; }
+.hero h1 { font-size: clamp(3.25rem, 9vw, 6rem); font-weight: 800; letter-spacing: -.025em; line-height: .95; }
+.lede {
+  font-family: var(--font-sign); font-weight: 600;
+  font-size: clamp(1.35rem, 2.8vw, 1.85rem); line-height: 1.3;
+  max-width: 34ch; margin: 1.25rem 0 1.25rem;
+}
+.intro { max-width: var(--measure); color: var(--muted); }
+.actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.75rem; font-family: var(--font-sign); }
+.btn { display: inline-block; padding: .7rem 1.2rem; border-radius: 999px; text-decoration: none; font-weight: 600; }
+.btn-primary { background: var(--teal); color: var(--on-teal); }
+.btn-secondary { border: 1.5px solid var(--rule); color: var(--ink); }
+.btn-secondary:hover { border-color: var(--ink); }
+
+/* Route strip: the one signature element */
+.route { list-style: none; padding: 0; margin: 4rem 0 0; display: grid; grid-template-columns: repeat(6, 1fr); }
+.stop { position: relative; padding: 2.1rem 1rem 0 0; font-family: var(--font-sign); }
+.stop::before { /* segment to the next stop */
+  content: ""; position: absolute; top: calc(.65rem - var(--line) / 2); left: .65rem; width: 100%; height: var(--line);
+  background: var(--teal); transform-origin: left center;
+}
+.stop:last-child::before { display: none; }
+.stop.crossing::before { background: repeating-linear-gradient(90deg, var(--ochre) 0 12px, transparent 12px 20px); }
+.stop::after { /* station */
+  content: ""; position: absolute; top: 0; left: 0; width: 1.3rem; height: 1.3rem; border-radius: 50%;
+  background: var(--paper); border: var(--line) solid var(--teal);
+}
+.stop.pgh::after { border-color: var(--ochre); width: 1.5rem; height: 1.5rem; top: -.1rem; left: -.1rem; }
+.stop .yr { display: block; font-size: .85rem; color: var(--muted); }
+.stop .pl { display: block; font-weight: 600; line-height: 1.25; font-size: .98rem; }
+.stop .wh { display: block; font-size: .9rem; color: var(--muted); line-height: 1.35; margin-top: .2rem; }
+.route-key { margin-top: 1.5rem; font-family: var(--font-sign); font-size: .85rem; color: var(--muted); display: flex; gap: 1.25rem; }
+.route-key span::before { content: ""; display: inline-block; width: 1.4rem; height: var(--line); margin-right: .45rem; vertical-align: middle; background: var(--teal); }
+.route-key .k-pgh::before { background: repeating-linear-gradient(90deg, var(--ochre) 0 7px, transparent 7px 11px); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .stop::before { animation: draw-x .55s ease-out both; animation-delay: calc(var(--i) * .16s + .2s); }
+  @keyframes draw-x { from { transform: scaleX(0); } }
+}
+
+@media (max-width: 760px) {
+  .route { grid-template-columns: 1fr; margin-top: 3rem; }
+  .stop { padding: 0 0 1.4rem 2.3rem; }
+  .stop::before { top: .65rem; left: calc(.65rem - var(--line) / 2); width: var(--line); height: 100%; transform-origin: center top; }
+  .stop.crossing::before { background: repeating-linear-gradient(180deg, var(--ochre) 0 9px, transparent 9px 15px); }
+  @media (prefers-reduced-motion: no-preference) {
+    .stop::before { animation-name: draw-y; }
+    @keyframes draw-y { from { transform: scaleY(0); } }
+  }
+}
+
+/* ---------- Sections ---------- */
+.section { padding: clamp(3.5rem, 7vw, 5.5rem) 0; }
+.section-head { margin-bottom: 2.25rem; max-width: var(--measure); }
+.section-head p { color: var(--muted); margin-top: .75rem; }
+
+.band { margin: 0; }
+.band { position: relative; }
+.band img, .band video { display: block; width: 100%; height: clamp(14rem, 40vw, 28rem); object-fit: cover; object-position: var(--pos, 50% 50%); }
+.video-toggle {
+  position: absolute; right: 1rem; bottom: 1rem; font-family: var(--font-sign); font-size: .85rem;
+  background: color-mix(in srgb, var(--paper) 88%, transparent); color: var(--ink);
+  border: 1px solid var(--rule); border-radius: 999px; padding: .35rem .85rem; cursor: pointer;
+}
+.clip { position: relative; margin: 0; }
+.clip video { display: block; width: 100%; height: auto; aspect-ratio: 9 / 16; object-fit: cover; border-radius: 6px; }
+.clip .video-toggle { right: .5rem; bottom: .5rem; font-size: .78rem; padding: .25rem .65rem; }
+.contact-grid { display: grid; grid-template-columns: 1fr minmax(14rem, 20rem); gap: 4rem; align-items: start; }
+@media (max-width: 760px) { .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; } .clip { max-width: 14rem; } }
+.shot { margin: 0 0 1.25rem; }
+.shot img { width: 100%; height: auto; border: 1px solid var(--rule); border-radius: 6px; }
+.shot figcaption { font-family: var(--font-sign); font-size: .85rem; color: var(--muted); margin-top: .5rem; }
+
+/* ---------- Projects ---------- */
+.project {
+  --c: var(--teal);
+  display: grid; grid-template-columns: 16rem 1fr; gap: 1rem 3.5rem;
+  padding: 2.5rem 0; border-top: 1px solid var(--rule);
+}
+.project:last-of-type { border-bottom: 1px solid var(--rule); }
+.project[data-line="safety"] { --c: var(--rose); }
+.project[data-line="strategy"] { --c: var(--ochre); }
+.project[data-line="research"] { --c: var(--blue); }
+.project[data-line="product"] { --c: var(--plum); }
+.line-tag { font-family: var(--font-sign); font-weight: 600; font-size: .92rem; margin: 0 0 1rem; display: flex; align-items: center; gap: .55rem; }
+.line-tag::before { content: ""; width: 2rem; height: var(--line); background: var(--c); border-radius: 2px; }
+.facts { margin: 0; font-family: var(--font-sign); font-size: .9rem; }
+.facts dt { color: var(--muted); }
+.facts dd { margin: 0 0 .7rem; line-height: 1.4; }
+.project-body > h3, .project-body > p { max-width: var(--measure); }
+.project-body .shot { max-width: 60rem; }
+.project-body h3 { font-size: clamp(1.35rem, 2.4vw, 1.6rem); margin-bottom: 1rem; }
+.project-body .q { font-style: italic; }
+.outcome { border-left: var(--line) solid var(--c); padding-left: 1rem; }
+.links { font-family: var(--font-sign); font-size: .95rem; display: flex; flex-wrap: wrap; gap: .4rem 1.4rem; margin: 0; }
+.aside-note { font-size: .97rem; color: var(--muted); background: var(--surface); padding: 1rem 1.15rem; border-radius: 6px; }
+
+.practice { margin-top: 3rem; }
+.practice h3, .practice li, .practice li p { max-width: var(--measure); }
+.practice li.has-shot { max-width: none; }
+.practice li.has-shot .shot { max-width: 64rem; }
+.practice h3 { margin-bottom: .75rem; }
+.practice ul { list-style: none; padding: 0; }
+.practice li { padding: .55rem 0; border-top: 1px dashed var(--rule); }
+.practice li strong { font-family: var(--font-sign); font-weight: 600; }
+.practice li p { margin-bottom: .9rem; }
+.practice .shot { margin-bottom: .4rem; }
+
+/* ---------- Experience timeline ---------- */
+.timeline { list-style: none; margin: 0; padding: 0; }
+.stint {
+  --c: var(--teal);
+  position: relative; display: grid; grid-template-columns: 9.5rem 1fr; column-gap: 3.25rem;
+  padding-bottom: 2.5rem;
+}
+.stint.pgh { --c: var(--ochre); }
+.stint::before { content: ""; position: absolute; top: .45rem; bottom: 0; left: calc(9.5rem + 1.625rem - var(--line) / 2); width: var(--line); background: var(--c); }
+.stint:last-child::before { bottom: auto; height: 1rem; }
+.stint::after {
+  content: ""; position: absolute; top: .2rem; left: calc(9.5rem + 1.625rem - .6rem);
+  width: 1.2rem; height: 1.2rem; border-radius: 50%; background: var(--paper); border: var(--line) solid var(--c);
+}
+.when { font-family: var(--font-sign); font-size: .9rem; color: var(--muted); padding-top: .15rem; text-align: right; }
+.stint h3 { font-size: 1.2rem; }
+.org { font-family: var(--font-sign); color: var(--muted); margin: .2rem 0 .7rem; }
+.stint ul { max-width: var(--measure); list-style: disc; }
+.stint li { margin-bottom: .45rem; }
+.sub-role { margin-top: 1.25rem; }
+
+@media (max-width: 760px) {
+  .project { grid-template-columns: 1fr; }
+  .stint { grid-template-columns: 1fr; padding-left: 2.2rem; }
+  .stint::before { left: calc(.6rem - var(--line) / 2); }
+  .stint::after { left: 0; }
+  .when { text-align: left; }
+}
+
+/* ---------- Client projects, publications, skills ---------- */
+.clients { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(19rem, 1fr)); gap: 1.75rem 2.5rem; }
+.clients li { border-top: var(--line) solid var(--teal); padding-top: .9rem; }
+.clients strong { display: block; font-family: var(--font-sign); font-weight: 600; line-height: 1.3; margin-bottom: .35rem; }
+.clients span { color: var(--muted); font-size: .98rem; }
+.more { margin-top: 2rem; max-width: var(--measure); }
+
+.pubs { list-style: none; padding: 0; max-width: 72ch; }
+.pubs li { padding: 1rem 0; border-top: 1px solid var(--rule); }
+.pubs .yr { font-family: var(--font-sign); font-weight: 600; color: var(--blue); margin-right: .6rem; }
+
+.skills { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 1.75rem 2.5rem; margin: 0; }
+.skills dt { font-family: var(--font-sign); font-weight: 600; margin-bottom: .35rem; }
+.skills dd { margin: 0; color: var(--muted); }
+
+.edu { list-style: none; padding: 0; display: grid; gap: 1.5rem; max-width: var(--measure); }
+.edu strong { font-family: var(--font-sign); font-weight: 600; display: block; }
+.edu span { display: block; }
+.edu span + span { color: var(--muted); }
+
+/* ---------- About ---------- */
+.about-grid { display: grid; grid-template-columns: minmax(16rem, 22rem) 1fr; gap: 3.5rem; align-items: start; }
+.portrait { margin: 0; }
+.portrait img { width: 100%; height: auto; border-radius: 6px; aspect-ratio: 9 / 16; object-fit: cover; }
+.portrait figcaption { font-family: var(--font-sign); font-size: .85rem; color: var(--muted); margin-top: .6rem; }
+.about-text { max-width: var(--measure); line-height: 1.8; }
+.about-text .opener { font-family: var(--font-sign); font-weight: 600; font-size: clamp(1.3rem, 2.4vw, 1.6rem); line-height: 1.35; }
+@media (max-width: 760px) { .about-grid { grid-template-columns: 1fr; } .portrait { max-width: 14rem; } }
+
+/* ---------- Contact ---------- */
+.contact-grid .section-head { max-width: var(--measure); }
+.contact .email { font-family: var(--font-sign); font-weight: 800; font-size: clamp(1.5rem, 4.5vw, 2.6rem); word-break: break-word; }
+.contact ul { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: .5rem 1.6rem; font-family: var(--font-sign); margin-top: 1.5rem; }
+
+.resume-picks { margin-top: 3.5rem; max-width: 52rem; scroll-margin-top: 5rem; }
+.resume-picks h3 { margin-bottom: .4rem; }
+.picks { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1.25rem; margin-top: 1.25rem; }
+.pick { display: flex; flex-direction: column; gap: .45rem; padding: 1.2rem 1.3rem; border: 1.5px solid var(--rule); border-radius: 6px; text-decoration: none; color: var(--ink); background: var(--surface); }
+.pick:hover { border-color: var(--teal); }
+.pick-title { font-family: var(--font-sign); font-weight: 600; font-size: 1.1rem; color: var(--teal); }
+.pick-desc { font-size: .97rem; color: var(--muted); line-height: 1.55; }
+.pick-file { font-family: var(--font-sign); font-size: .85rem; color: var(--muted); }
+.site-footer { border-top: 1px solid var(--rule); padding: 2rem 0 3rem; font-family: var(--font-sign); font-size: .88rem; color: var(--muted); }
+</style>
+</head>
+
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="wordmark" href="#top">Fran Hsu</a>
+    <nav class="nav" aria-label="Main">
+      <a href="#work">Work</a>
+      <a href="#experience">Experience</a>
+      <a href="#publications">Publications</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <a class="resume" href="#resume">Résumé</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="top">
+  <div class="wrap">
+    <h1>Fran Hsu</h1>
+    <p class="lede">I turn transportation and operations data into decisions people can act on.</p>
+    <p class="intro">For more than five years I helped Taiwan's local governments, developers, and its transportation ministry decide which intersections to fix first, how to keep traffic moving on opening day, and how much cargo a port should plan for. Now I'm finishing an M.S. in Information Science at the University of Pittsburgh and looking for data, operations, and strategy roles in mobility and logistics after I graduate in May 2027.</p>
+    <div class="actions">
+      <a class="btn btn-primary" href="#work">See selected work</a>
+      <a class="btn btn-secondary" href="#resume">Get my résumé</a>
+    </div>
+
+    <ol class="route" aria-label="My route so far">
+      <li class="stop" style="--i:0"><span class="yr">2012</span><span class="pl">Chung Yuan Christian University</span><span class="wh">Civil engineering</span></li>
+      <li class="stop" style="--i:1"><span class="yr">2016</span><span class="pl">National Cheng Kung University</span><span class="wh">M.S., transportation management</span></li>
+      <li class="stop" style="--i:2"><span class="yr">2018</span><span class="pl">Delta Electronics</span><span class="wh">Production planning</span></li>
+      <li class="stop" style="--i:3"><span class="yr">2019</span><span class="pl">Asian Technical Consultants</span><span class="wh">Port cargo forecasting</span></li>
+      <li class="stop crossing" style="--i:4"><span class="yr">2020</span><span class="pl">THI Consultants</span><span class="wh">Traffic safety, planning, and data tools</span></li>
+      <li class="stop pgh" style="--i:5"><span class="yr">2025</span><span class="pl">University of Pittsburgh</span><span class="wh">M.S., information science</span></li>
+    </ol>
+    <p class="route-key"><span>Taiwan</span><span class="k-pgh">Pittsburgh</span></p>
+  </div>
+</section>
+
+<figure class="band">
+  <!-- TODO: replace with one of your Pittsburgh street photos and describe it in alt -->
+  <img src="assets/photos/band-street.jpg" alt="A street in Pittsburgh, photographed by Fran" width="2000" height="1125" style="--pos: 50% 50%">
+</figure>
+
+<!-- ================= WORK ================= -->
+<section class="section" id="work">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Selected work</h2>
+      <p>Five projects, from county-wide safety programs to code you can run yourself.</p>
+    </div>
+
+    <article class="project" data-line="transit">
+      <div>
+        <p class="line-tag">Transit data tools</p>
+        <dl class="facts">
+          <dt>Role</dt><dd>Led development at THI; solo rebuild for Pittsburgh</dd>
+          <dt>When</dt><dd>THI original; Pittsburgh version 2025</dd>
+          <dt>Built with</dt><dd>Python, Flask, Pandas, Matplotlib, Contextily, GTFS, HTML/CSS/JS</dd>
+        </dl>
+      </div>
+      <div class="project-body">
+        <h3>TIA Robot: a transit report generator, built twice</h3>
+        <p class="q">Every traffic impact assessment starts with the same chores: find the bus stops near a site, list the routes, check service frequency, pull bike-share data, and turn it all into charts.</p>
+        <p>At THI I led development of an internal tool that pulled data from Taiwan's open government transit APIs and generated the dashboards, charts, maps, and report summaries automatically. The code stayed with the company when I left, so I rebuilt it from scratch in Pittsburgh using Pittsburgh Regional Transit's GTFS feed and POGOH bike-share data from WPRDC. Enter a coordinate and a radius, and it returns stop maps, route tables, a service-frequency heatmap, and bike-share usage in about 10 to 20 seconds.</p>
+        <p class="outcome">The original version reduced manual reporting effort by 80%. The Pittsburgh version runs end to end on public data, and the code is open.</p>
+        <figure class="shot">
+          <!-- TODO: describe what the screenshot shows in alt and figcaption -->
+          <img src="assets/projects/tia-robot.png" alt="Charts generated by the Pittsburgh version of TIA Robot" width="1600" height="1000" loading="lazy">
+          <figcaption>Output from the Pittsburgh version.</figcaption>
+        </figure>
+        <p class="links"><a href="https://github.com/Chia-Fan-create/tia-robot">Code on GitHub</a></p>
+      </div>
+    </article>
+
+    <article class="project" data-line="safety">
+      <div>
+        <p class="line-tag">Traffic safety</p>
+        <dl class="facts">
+          <dt>Role</dt><dd>Project manager, THI Consultants</dd>
+          <dt>Client</dt><dd>Taiwan's central government, serving 22 local governments</dd>
+          <dt>Methods</dt><dd>Stakeholder interviews, requirements definition, system design, funding process design</dd>
+        </dl>
+      </div>
+      <div class="project-body">
+        <h3>A collision diagram system for 22 local governments</h3>
+        <p class="q">Traffic crashes were a major public concern in Taiwan, and the government wanted to use collision diagrams to find contributing factors and fix dangerous intersections.</p>
+        <p>I coordinated the development of a central management system and the process around it. Talking with government stakeholders, we found two different needs: the central government had to track projects and funding, while local governments needed tools to draw collision diagrams and manage their intersection improvements.</p>
+        <p>So I helped define what each level of government was responsible for and proposed a two-level approach. The central government got a management platform that tracks project progress and cuts down manual Excel reporting. Local governments got a funding process to build their own platforms, with the features each of them needed. Throughout, I worked between the agencies and our technical team to keep the system aligned with how people actually do their jobs.</p>
+        <p class="outcome">The central management platform was delivered on time, and local governments moved ahead with their own systems. What I took from it: a system succeeds when it fits its users' needs, clear responsibilities, and daily work, not only when the technology works.</p>
+        <p class="aside-note">Related: <strong>Street Doctor</strong>, our 2023 Presidential Hackathon entry, proposed digitizing accident data, analyzing safety indicators, showing real-time 3D insights, and building a public warning system. It was named an Excellence Team, one of the top 4 of 154 teams. Its full name, the Tiger Mouth Extraction Project, comes from a Mandarin phrase: a "tiger's mouth" is a dangerous spot, and the project set out to pull its teeth.</p>
+      </div>
+    </article>
+
+    <article class="project" data-line="strategy">
+      <div>
+        <p class="line-tag">Market positioning assessment</p>
+        <dl class="facts">
+          <dt>Role</dt><dd>Engagement Manager, team of 5</dd>
+          <dt>Client</dt><dd>PITT OHIO, for its LogiFlow transportation management system</dd>
+          <dt>When</dt><dd>August 2026 to now</dd>
+          <dt>Methods</dt><dd>Customer data analysis, TAM/SAM/SOM sizing, competitor benchmarking</dd>
+        </dl>
+      </div>
+      <div class="project-body">
+        <h3>Where should a TMS product grow next?</h3>
+        <p class="q">LogiFlow is a customizable transportation management system (TMS) whose customers are concentrated in a few industries. The question is which markets it should go after next.</p>
+        <p>Through the Katz Graduate School of Business consulting field project, I lead a five-person student team. We analyzed historical customer data, sized the market at the TAM, SAM, and SOM levels, and benchmarked 15 competitors.</p>
+        <p class="outcome">So far the analysis has identified three priority customer segments to inform LogiFlow's growth strategy. The engagement is ongoing.</p>
+      </div>
+    </article>
+
+    <article class="project" data-line="product">
+      <div>
+        <p class="line-tag">Data product</p>
+        <dl class="facts">
+          <dt>Role</dt><dd>Originated the concept; led the front end; co-designed the database</dd>
+          <dt>Team</dt><dd>3 members, Database Management course, Pitt</dd>
+          <dt>When</dt><dd>2025 to 2026</dd>
+          <dt>Built with</dt><dd>React, Flask, MySQL, Python, JWT</dd>
+        </dl>
+      </div>
+      <div class="project-body">
+        <h3>SmartCart: grocery prices you can actually compare</h3>
+        <p class="q">A 12-pack and a 30-pack can't be compared on sticker price. Amazon, Target, and Walmart all list the same products in different sizes and units.</p>
+        <p>I proposed the idea and led the React front end: the pages, the API integration, and the interface. The three of us designed the rest together, including a normalized 15-table MySQL schema with indexes, transactions, functions, and triggers, and the cleaning logic that converts inconsistent units into a true price per ounce, roll, or count.</p>
+        <p class="outcome">The finished app compares unit prices across all three retailers and also tracks shopping lists, household inventory, spending trends, and price alerts.</p>
+        <p class="links"><a href="https://github.com/Chia-Fan-create/Basket-Optimiser">Code on GitHub</a></p>
+      </div>
+    </article>
+
+    <article class="project" data-line="research">
+      <div>
+        <p class="line-tag">Optimization research</p>
+        <dl class="facts">
+          <dt>Role</dt><dd>Master's thesis, Intelligent Transportation Systems Lab, NCKU</dd>
+          <dt>When</dt><dd>2016 to 2018</dd>
+          <dt>Methods</dt><dd>NSGA-II, multi-objective optimization, Python</dd>
+        </dl>
+      </div>
+      <div class="project-body">
+        <h3>Hazmat routes with no single right answer</h3>
+        <p class="q">A route for a truck carrying hazardous materials has to balance three goals that pull against each other: operating cost, accident risk, and how quickly emergency responders could reach an incident.</p>
+        <p>I implemented the NSGA-II evolutionary algorithm in Python to search across all three objectives at once. Instead of one "optimal" route, it returns the set of Pareto-optimal alternatives, which I visualized so decision makers could see exactly what each option trades away.</p>
+        <p class="outcome">Related models were published in the Journal of the Eastern Asia Society for Transportation Studies and presented at the 2017 Chinese Institute of Transportation annual conference.</p>
+        <p class="links"><a href="https://thesis.lib.ncku.edu.tw/thesis/detail/37680617d87c1268142431509f0a2e5c/">Thesis record (NCKU)</a></p>
+      </div>
+    </article>
+
+    <div class="practice">
+      <h3>Machine learning practice</h3>
+      <ul>
+        <li class="has-shot">
+          <p><strong>CIFAR-10 image generation with a DCGAN.</strong> Trained an unconditional DCGAN in PyTorch on all 50,000 CIFAR-10 training images across 10 classes, using one-sided label smoothing and tracking both losses at every one of 19,550 iterations. By epoch 25 the samples showed horses on grass, ships on water, and planes in the sky, with no mode collapse. My analysis explains why they stay blurry: ten diverse classes at 32×32, a small four-layer model trained for 50 epochs, a discriminator that slowly gained the upper hand, and no spectral normalization, gradient penalty, or class conditioning.</p>
+          <!-- TODO: add a code link once publishing is allowed -->
+          <figure class="shot">
+            <img src="assets/projects/gan-progress.png" alt="Generated samples from the same random inputs at epochs 1, 10, 25, and 50: repetitive checkerboard textures at epoch 1, color blobs at epoch 10, and blurry animals, vehicles, ships, and planes by epochs 25 and 50" width="1558" height="397" loading="lazy">
+            <figcaption>Samples from the same random inputs at epochs 1, 10, 25, and 50.</figcaption>
+          </figure>
+        </li>
+        <li><strong>Rainfall prediction classifier.</strong> Predicts next-day rain from the Rain in Australia dataset, with feature engineering, a class-balance check, a preprocessing pipeline, and a comparison of a grid-searched random forest against logistic regression. <a href="https://github.com/Chia-Fan-create/rainfall-prediction-classifier">Code on GitHub</a>, <a href="https://www.kaggle.com/code/chiafanhsu/rainfall-prediction-classifier">Notebook on Kaggle</a></li>
+        <li><strong>Titanic survival prediction.</strong> Random forest and logistic regression tuned with cross-validated grid search; Kaggle score 0.7799. <a href="https://github.com/Chia-Fan-create/titanic-survival-prediction">Code on GitHub</a></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= EXPERIENCE ================= -->
+<section class="section" id="experience">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Experience</h2>
+    </div>
+
+    <ol class="timeline">
+      <li class="stint pgh">
+        <div class="when">Aug 2026 to now</div>
+        <div>
+          <h3>Engagement Manager, Consulting Field Project</h3>
+          <p class="org">University of Pittsburgh, Katz Graduate School of Business</p>
+          <ul>
+            <li>Lead a five-person team assessing growth markets for PITT OHIO's LogiFlow transportation management system.</li>
+            <li>Identified three priority customer segments from historical customer data, TAM/SAM/SOM market sizing, and benchmarking of 15 competitors.</li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="stint pgh">
+        <div class="when">Jan 2026 to now</div>
+        <div>
+          <h3>Course Facilitator and Course Assistant, Master of Data Science</h3>
+          <p class="org">University of Pittsburgh, School of Computing and Information</p>
+          <ul>
+            <li>Facilitate office hours for Applied Deep Learning (since August 2026), helping graduate students debug code, interpret model results, and work through implementation problems.</li>
+            <li>Evaluate assignments, exams, and projects for Introduction to Data-Centric Computing, Responsible Data Science, and Applied Predictive Modeling, reviewing students' Python, SQL, statistics, and machine learning work for accuracy, method, and interpretation.</li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="stint pgh">
+        <div class="when">May to Aug 2026</div>
+        <div>
+          <h3>Data &amp; Intelligence Intern</h3>
+          <p class="org">GEOINT-ISAC, a division of the International Association of Certified ISAOs (IACI)</p>
+          <ul>
+            <li>Processed climate-risk datasets with Python, GeoPandas, and ArcGIS for a climate-risk atlas of six U.S. military installations: validated site coordinates, prepared climate projections for GIS-based risk assessment, and flagged data gaps.</li>
+            <li>Co-led, with one other lead, an 18-person team on the FEMA Multi-Hazard project, coordinating contributions to an emergency-resource database.</li>
+            <li>Wrote a white paper chapter synthesizing international extreme-weather case studies.</li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="stint pgh">
+        <div class="when">Sep to Dec 2025</div>
+        <div>
+          <h3>Data Analyst Intern (Volunteer)</h3>
+          <p class="org">The Education Partnership, iServe Program</p>
+          <ul>
+            <li>Ran a gap analysis of Salesforce and NetSuite integration needs, drew system architecture diagrams, and recommended cost-based IT options to technical and non-technical stakeholders.</li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="stint">
+        <div class="when">Jun 2020 to Jul 2025</div>
+        <div>
+          <h3>Planner, Innovation Team, Traffic Engineering</h3>
+          <p class="org">THI Consultants, Taipei. Promoted from Assistant Planner in April 2024.</p>
+          <ul>
+            <li>Guided 11 of Taiwan's 22 local governments in adopting crash-mapping dashboards and safety management systems, and led the program's data work with the big-data team so agencies received monthly updates.</li>
+            <li>Led development of TIA Robot, which automated reporting from open government transit APIs and cut manual reporting effort by 80%.</li>
+            <li>Advised Taiwan's Ministry of Transportation, as part of the consulting team, on operational design domains for autonomous vehicles, combining scenario reviews with the HD mapping team and VISSIM microsimulation.</li>
+            <li>Used VISSIM to compare weekday, weekend, and holiday peak traffic before the Danjiang Bridge opened, and recommended roadway and signal changes.</li>
+            <li>Delivered traffic impact assessments by analyzing multimodal travel demand and building parking and planning models, coordinating with architects and government agencies through approval. Project manager on five projects.</li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="stint">
+        <div class="when">Jul 2019 to Jun 2020</div>
+        <div>
+          <h3>Engineer</h3>
+          <p class="org">Asian Technical Consultants, Taipei</p>
+          <ul>
+            <li>Forecast cargo volumes for Taiwan's major ports using regression and time-series models built on historical cargo, population, and economic indicators, supporting long-term port infrastructure planning.</li>
+            <li>Validated data for multimodal passenger and freight studies with partner firms during the pandemic, and analyzed traffic impact data for science park developments.</li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="stint">
+        <div class="when">Oct 2018 to Feb 2019</div>
+        <div>
+          <h3>Production &amp; Material Control Manager</h3>
+          <p class="org">Delta Electronics, Industrial Automation Business Group, Taoyuan</p>
+          <ul>
+            <li>Managed master production schedules and material requirements in SAP and MES, keeping product delivery 100% on time, and built KPI tracking dashboards with procurement, production, and logistics teams.</li>
+          </ul>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ================= CLIENT PROJECTS ================= -->
+<section class="section" id="clients" aria-labelledby="clients-h">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 id="clients-h">Client projects at THI</h2>
+      <p>A few of the projects I worked on as a traffic engineering consultant in Taiwan.</p>
+    </div>
+    <ul class="clients">
+      <li><strong>TSMC Baoshan fab, Phases 1 and 2</strong><span>Estimated road-network traffic volumes and ran questionnaire surveys to assess the roads around the new fab and recommend improvements.</span></li>
+      <li><strong>Keelung Traffic AIoT Command Center</strong><span>Built VISSIM road-network simulations for the city's traffic AIoT command center system.</span></li>
+      <li><strong>Yilan County Road Traffic Safety Improvement Master Plan, 2024</strong><span>Simulated the Suhua Highway network in VISSIM, recommended traffic management measures, and organized an expert forum with scholars and practitioners.</span></li>
+      <li><strong>Tainan Mitsui Outlet Park grand opening</strong><span>Traffic impact assessment and a traffic maintenance plan to keep surrounding roads moving through opening-day crowds.</span></li>
+      <li><strong>Taipei Main Station C1D1 (East Block)</strong><span>Traffic impact assessment, plus pedestrian environment improvements, around Taiwan's busiest transit hub.</span></li>
+    </ul>
+    <p class="more muted">Plus more than 40 other traffic impact assessments, safety studies, and planning projects for agencies and developers, including the traffic and crowd plan for the 2021 Taiwan Lantern Festival and a depot site assessment for the Taoyuan MRT Airport Line.</p>
+  </div>
+</section>
+
+<figure class="band">
+  <!-- TODO: replace with one of your landscape or film photos -->
+  <img src="assets/photos/band-landscape.jpg" alt="A landscape photographed by Fran" width="2000" height="1125" loading="lazy" style="--pos: 50% 50%">
+</figure>
+
+<!-- ================= PUBLICATIONS ================= -->
+<section class="section" id="publications">
+  <div class="wrap">
+    <div class="section-head"><h2>Publications</h2></div>
+    <ul class="pubs">
+      <li><span class="yr">2025</span>Yu-Chen Chen, <strong>Chia-Fan Hsu</strong>, Chun-Fu Lin, Shih-Chen Chiu, Chia-Hsin Chen, Wei-Hsuan Lo, and Lei-Jie Wang. Research management plan for collision composition studies. <em>REAAA Conference</em>, Goyang, Korea.</li>
+      <li><span class="yr">2018</span><strong>Chia-Fan Hsu</strong>. A multi-objective evolutionary algorithm for hazmat transportation route planning. Master's thesis, National Cheng Kung University. <a href="https://thesis.lib.ncku.edu.tw/thesis/detail/37680617d87c1268142431509f0a2e5c/">Record</a></li>
+      <li><span class="yr">2017</span><strong>Chia-Fan Hsu</strong>. A multi-objective compromise weight model for hazmat transportation problems with the consideration of response capability. <em>Journal of the Eastern Asia Society for Transportation Studies</em>.</li>
+      <li><span class="yr">2017</span><strong>Chia-Fan Hsu</strong>. Hazardous materials transportation route planning: a multi-objective combined shortest path algorithm. <em>Proceedings of the 2017 Chinese Institute of Transportation Annual Conference</em>.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= SKILLS + EDUCATION ================= -->
+<section class="section" id="skills" aria-labelledby="skills-h">
+  <div class="wrap">
+    <div class="section-head"><h2 id="skills-h">Skills</h2></div>
+    <dl class="skills">
+      <div><dt>Programming and data</dt><dd>Python (Pandas, NumPy, GeoPandas, Matplotlib), SQL and MySQL, R, Flask, API integration, data pipelines</dd></div>
+      <div><dt>Machine learning</dt><dd>scikit-learn, PyTorch, classification, forecasting, model evaluation, hyperparameter tuning</dd></div>
+      <div><dt>Transportation modeling</dt><dd>PTV VISSIM, Synchro, traffic impact assessment, crash data analysis, cargo and travel demand forecasting, multi-objective optimization</dd></div>
+      <div><dt>GIS and visualization</dt><dd>ArcGIS, GeoPandas, Tableau, Power BI, Excel</dd></div>
+      <div><dt>Strategy and operations</dt><dd>Market sizing, competitor benchmarking, gap analysis, KPI dashboards, SAP and MES</dd></div>
+      <div><dt>Working with people</dt><dd>Government and client stakeholder management, project management, teaching, English and Mandarin</dd></div>
+    </dl>
+
+    <h2 class="section-head" style="margin-top:4.5rem">Education</h2>
+    <ul class="edu">
+      <li><strong>University of Pittsburgh</strong><span>M.S. in Information Science, expected May 2027</span><span>GPA 4.0</span><span>James G. Williams Scholarship</span><span>Coursework: Database Management, Machine Learning, Social Computing, Human Information Processing</span></li>
+      <li><strong>National Cheng Kung University</strong><span>M.S. in Transportation and Communication Management Science, 2018</span><span>GPA 3.69</span><span>Intelligent Transportation Systems Lab</span></li>
+      <li><strong>Chung Yuan Christian University</strong><span>Bachelor's degree in Civil Engineering, 2016</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section class="section" id="about">
+  <div class="wrap">
+    <div class="section-head"><h2>About</h2></div>
+    <div class="about-grid">
+      <figure class="portrait">
+        <img src="assets/photos/portrait.jpg" alt="Portrait of Fran Hsu" width="1080" height="1920" loading="lazy">
+        <figcaption>Fran (Chia-Fan) Hsu</figcaption>
+      </figure>
+      <div class="about-text">
+        <p class="opener">What I like about transportation is that it rarely has a standard answer. Every road, every intersection, tells a slightly different story.</p>
+        <p>That's why, as a civil engineering student, I went a different way from most of my classmates. They went into engineering; I went to National Cheng Kung University to study transportation management, the side of the field where policy, operations, and people's daily routines meet. Transportation touches almost everyone's day, and good management can make a real difference to a whole community.</p>
+        <p>At THI Consultants I spent five years on exactly those problems: crash-prone intersections, opening-day traffic at a new outlet mall, the roads around a semiconductor fab. Along the way I kept reaching for code to take repetitive work off my team's plate, and I came to Pitt to get better at it. I like learning new tools when they help solve a real-world problem.</p>
+        <p>The work I care about most either matters to society, like a safer crossing for a whole county, or makes a real difference at a smaller scale, like a tool that gives a team its afternoons back.</p>
+        <p>Outside work I run. I've done half marathons in Taipei, the Pittsburgh relay marathon this year, and the Philadelphia Half is next. I also practice yoga, lift, cook, keep a journal, and shoot film. Most of the photos and video on this site are mine.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section class="section contact" id="contact">
+  <div class="wrap contact-grid">
+    <div>
+    <div class="section-head">
+      <h2>Contact</h2>
+      <p>I'm looking for full-time roles in data analysis, operations, and strategy, especially in mobility, transportation, and logistics, starting after May 2027. I'm open to relocating anywhere in the U.S.</p>
+    </div>
+    <a class="email" href="mailto:francfhsu@gmail.com">francfhsu@gmail.com</a>
+    <ul>
+      <li><a href="https://www.linkedin.com/in/chia-fan-hsu-78953b211/">LinkedIn</a></li>
+      <li><a href="https://github.com/Chia-Fan-create">GitHub</a></li>
+      <li><a href="https://www.kaggle.com/chiafanhsu">Kaggle</a></li>
+    </ul>
+
+    <div class="resume-picks" id="resume">
+      <h3>Résumé</h3>
+      <p class="muted">Two versions of the same experience, organized for different roles.</p>
+      <div class="picks">
+        <a class="pick" href="assets/Fran-Hsu-Resume-Analytics-Operations.pdf" download>
+          <span class="pick-title">Analytics and operations</span>
+          <span class="pick-desc">For data analyst, business analyst, and operations analyst roles. Leads with reporting automation, stakeholder work, and operations.</span>
+          <span class="pick-file">PDF</span>
+        </a>
+        <a class="pick" href="assets/Fran-Hsu-Resume-Data-Science.pdf" download>
+          <span class="pick-title">Data science</span>
+          <span class="pick-desc">For data scientist roles. Leads with forecasting, modeling, machine learning, and data pipelines.</span>
+          <span class="pick-file">PDF</span>
+        </a>
+      </div>
+    </div>
+    </div>
+
+    <figure class="clip">
+      <video muted loop playsinline preload="metadata" poster="assets/video/about-poster.jpg" width="432" height="768" aria-label="Autumn trees moving in the wind, filmed by Fran">
+        <source src="assets/video/about-loop.mp4" type="video/mp4">
+      </video>
+      <button class="video-toggle" type="button" hidden>Pause video</button>
+    </figure>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">Fran (Chia-Fan) Hsu, Pittsburgh. Hosted on GitHub Pages. Photos by Fran.</div>
+</footer>
+
+<script>
+/* Plays the About video only if the file exists and the visitor allows motion. */
+(function () {
+  var v = document.querySelector('.clip video');
+  var btn = document.querySelector('.video-toggle');
+  if (!v || !btn) return;
+  var src = v.querySelector('source');
+  var calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function label() { btn.textContent = v.paused ? 'Play video' : 'Pause video'; }
+  src.addEventListener('error', function () { btn.hidden = true; });
+  v.addEventListener('loadeddata', function () {
+    btn.hidden = false;
+    if (!calm) { v.play().catch(function () {}); }
+    label();
+  });
+  v.addEventListener('play', label);
+  v.addEventListener('pause', label);
+  btn.addEventListener('click', function () { v.paused ? v.play() : v.pause(); });
+})();
+</script>
+</body>
+</html>
