@@ -240,9 +240,14 @@ ul { margin: 0; padding-left: 1.1em; }
 .aside-note { font-size: .97rem; color: var(--muted); background: var(--surface); padding: 1rem 1.15rem; border-radius: 6px; }
 
 .practice { margin-top: 0; }
-.practice li, .practice li p { max-width: var(--measure); }
+.practice li, .practice li p, .practice .ml-points li { max-width: 64rem; }
 .practice li.has-shot { max-width: none; }
 .practice li:first-child { border-top: 0; padding-top: 0; }
+.practice li strong { display: block; margin-bottom: .35rem; }
+.practice .ml-points { list-style: disc; padding-left: 1.2em; margin: 0 0 .9rem; }
+.practice .ml-points li { border-top: 0; padding: .15rem 0; }
+.practice li > p:not(.ml-links) { margin: 0 0 .4rem; }
+.ml-links { font-size: .97rem; color: var(--muted); margin: 0; }
 .practice li.has-shot .shot { max-width: 64rem; }
 .practice h3 { margin-bottom: .75rem; }
 .practice ul { list-style: none; padding: 0; }
@@ -382,10 +387,10 @@ ul { margin: 0; padding-left: 1.1em; }
       <div>
         <p class="line-tag">Market positioning assessment</p>
         <dl class="facts">
-          <dt>Role</dt><dd>Engagement Manager, team of 5</dd>
-          <dt>Client</dt><dd>PITT OHIO, for its LogiFlow transportation management system</dd>
+          <dt>Role</dt><dd>Engagement Manager, lead five-person student consulting team</dd>
+          <dt>Client</dt><dd>PITT OHIO - LogiFlow team</dd>
           <dt>When</dt><dd>August 2026 to now</dd>
-          <dt>Methods</dt><dd>Customer data analysis, TAM/SAM/SOM sizing, competitor benchmarking</dd>
+          <dt>Methods</dt><dd>TAM/SAM/SOM sizing, competitor benchmarking, Market Sizing</dd>
         </dl>
       </div>
       <div class="project-body">
@@ -647,17 +652,39 @@ ul { margin: 0; padding-left: 1.1em; }
   <div class="wrap">
     <div class="practice">
       <div class="section-head"><h2 id="ml-h">Machine learning practice</h2></div>
-      <ul>
+            <ul>
         <li class="has-shot">
-          <p><strong>CIFAR-10 image generation with a DCGAN.</strong> Trained an unconditional DCGAN in PyTorch on all 50,000 CIFAR-10 training images across 10 classes, using one-sided label smoothing and tracking both losses at every one of 19,550 iterations. By epoch 25 the samples showed horses on grass, ships on water, and planes in the sky, with no mode collapse. My analysis explains why they stay blurry: ten diverse classes at 32×32, a small four-layer model trained for 50 epochs, a discriminator that slowly gained the upper hand, and no spectral normalization, gradient penalty, or class conditioning.</p>
-          <!-- TODO: add a code link once publishing is allowed -->
+          <strong>CIFAR-10 image generation with a DCGAN</strong>
+          <ul class="ml-points">
+            <li>Built and trained an unconditional DCGAN from scratch in PyTorch on all 50,000 CIFAR-10 training images, using one-sided label smoothing and tracking losses and discriminator outputs at every one of 19,500 iterations.</li>
+            <li>Training stayed stable with no mode collapse. By epoch 25 the samples showed horses, ships, planes, and cars, and the final generator reached an FID of 41.6 (5,000 real vs. 5,000 generated images).</li>
+            <li>Analyzed why the samples stay blurry: ten diverse classes at 32×32, a small four-layer model, a discriminator that slowly gained the upper hand, and no spectral normalization, gradient penalty, or class conditioning. Also showed that the losses flattened while image quality kept improving, so loss alone can't judge a GAN.</li>
+          </ul>
           <figure class="shot">
             <img src="assets/projects/gan-progress.png" alt="Generated samples from the same random inputs at epochs 1, 10, 25, and 50: repetitive checkerboard textures at epoch 1, color blobs at epoch 10, and blurry animals, vehicles, ships, and planes by epochs 25 and 50" width="1558" height="397" loading="lazy">
             <figcaption>Samples from the same random inputs at epochs 1, 10, 25, and 50.</figcaption>
           </figure>
+          <p class="ml-links"><a href="https://github.com/Chia-Fan-create/dcgan-cifar10-image-generation">See README on GitHub</a> (code withheld while the course assignment is in use)</p>
         </li>
-        <li><strong>Rainfall prediction classifier.</strong> Predicts next-day rain from the Rain in Australia dataset, with feature engineering, a class-balance check, a preprocessing pipeline, and a comparison of a grid-searched random forest against logistic regression. <a href="https://github.com/Chia-Fan-create/rainfall-prediction-classifier">Code on GitHub</a>, <a href="https://www.kaggle.com/code/chiafanhsu/rainfall-prediction-classifier">Notebook on Kaggle</a></li>
-        <li><strong>Titanic survival prediction.</strong> Random forest and logistic regression tuned with cross-validated grid search; Kaggle score 0.7799. <a href="https://github.com/Chia-Fan-create/titanic-survival-prediction">Code on GitHub</a></li>
+        <li>
+          <strong>Fashion-MNIST clothing classification with an MLP</strong>
+          <ul class="ml-points">
+            <li>Built a four-layer MLP (784 → 512 → 256 → 128 → 10) in PyTorch with BatchNorm, dropout, weight decay, and cosine learning-rate decay, selecting the best checkpoint on a held-out validation set.</li>
+            <li>Reached 90.3% test accuracy and 0.902 macro-F1. Visually distinct items like trousers, bags, and sandals scored F1 above 0.96, while shirts were the hardest class (F1 0.74) because they share silhouettes with pullovers, coats, and T-shirts.</li>
+            <li>Found a roughly 5-point gap between training and test accuracy, and explained the MLP's core limit: flattening each image throws away its spatial structure, which makes a small CNN the natural next step.</li>
+          </ul>
+          <p class="ml-links"><a href="https://github.com/Chia-Fan-create/fashion-mnist-mlp-pytorch">See README on GitHub</a> (code withheld while the course assignment is in use)</p>
+        </li>
+        <li>
+          <strong>Rainfall prediction classifier</strong>
+          <p>Predicts next-day rain from the Rain in Australia dataset, with feature engineering, a class-balance check, a preprocessing pipeline, and a comparison of a grid-searched random forest against logistic regression.</p>
+          <p class="ml-links"><a href="https://github.com/Chia-Fan-create/rainfall-prediction-classifier">Code on GitHub</a>, <a href="https://www.kaggle.com/code/chiafanhsu/rainfall-prediction-classifier">Notebook on Kaggle</a></p>
+        </li>
+        <li>
+          <strong>Titanic survival prediction</strong>
+          <p>Random forest and logistic regression tuned with cross-validated grid search; Kaggle score 0.7799. </p>
+          <p class="ml-links"><a href="https://github.com/Chia-Fan-create/titanic-survival-prediction">Code on GitHub</a>, <a href="https://www.kaggle.com/code/chiafanhsu/titanic-survival-prediction">Notebook on Kaggle</a></p>
+        </li>
       </ul>
     </div>
   </div>
@@ -667,7 +694,7 @@ ul { margin: 0; padding-left: 1.1em; }
   <div class="wrap">
     <div class="section-head"><h2 id="edu-h">Education</h2></div>
     <ul class="edu">
-      <li><strong>University of Pittsburgh</strong><span>M.S. in Information Science, expected May 2027</span><span>GPA 4.0</span><span>James G. Williams Scholarship</span><span>Coursework: Database Management, Machine Learning, Social Computing, Human Information Processing</span></li>
+      <li><strong>University of Pittsburgh</strong><span>M.S. in Information Science, expected May 2027</span><span>GPA 4.0</span><span>James G. Williams Scholarship</span></li>
       <li><strong>National Cheng Kung University</strong><span>M.S. in Transportation and Communication Management Science, 2018</span><span>GPA 3.69</span><span>Intelligent Transportation Systems Lab</span></li>
       <li><strong>Chung Yuan Christian University</strong><span>Bachelor's degree in Civil Engineering, 2016</span><span>GPA 3.524</span></li>
     </ul>
@@ -707,18 +734,19 @@ ul { margin: 0; padding-left: 1.1em; }
       <li><a href="https://www.linkedin.com/in/chia-fan-hsu-78953b211/">LinkedIn</a></li>
       <li><a href="https://github.com/Chia-Fan-create">GitHub</a></li>
       <li><a href="https://www.kaggle.com/chiafanhsu">Kaggle</a></li>
+      <li><a href="https://public.tableau.com/app/profile/fran.hsu/vizzes">Tableau public</a></li>
     </ul>
 
     <div class="resume-picks" id="resume">
       <h3>Resume</h3>
-      <p class="muted">Two versions of the same experience, organized for different roles.</p>
+      <p class="muted">Get my resume in PDF format</p>
       <div class="picks">
-        <a class="pick" href="assets/Fran-Hsu-Resume-Analytics-Operations.pdf" download>
+        <a class="pick" href="assets/Fran-Hsu-Resume-Analytics-Operations.pdf" target="_blank" rel="noopener">
           <span class="pick-title">Analytics and operations</span>
           <span class="pick-desc">For data analyst, business analyst, and operations analyst roles. Leads with reporting automation, stakeholder work, and operations.</span>
           <span class="pick-file">PDF</span>
         </a>
-        <a class="pick" href="assets/Fran-Hsu-Resume-Data-Science.pdf" download>
+        <a class="pick" href="assets/Fran-Hsu-Resume-Data-Science.pdf" target="_blank" rel="noopener">
           <span class="pick-title">Data science</span>
           <span class="pick-desc">For data scientist roles. Leads with forecasting, modeling, machine learning, and data pipelines.</span>
           <span class="pick-file">PDF</span>
